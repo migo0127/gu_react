@@ -1,0 +1,61 @@
+<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+-------------------
+
+※ react 生命週期執行流程
+constructor()
+     ↓
+componentWillMount()
+     ↓
+render()
+     ↓
+componentDidMount()
+     ↓
+componentWillUpdate()
+     ↓
+render()
+     ↓
+componentDidUpdate()
+     ↓
+componentWillUnmount()
+
+---------------------
+
+※ 如何編寫Router組件及效果
+● 步驟：
+1.index.js中，將<App />包裹在<BrowserRouter></BrowserRouter>中：
+     render((
+               <BrowserRouter>
+                    <App />
+               </BrowserRouter>
+          ),document.getElementById('')
+     )
+2.編輯Route組件 → views資料夾或pages資料夾
+3.在父路由組件中指定
+     3-1.路由鏈接：<NavLink></NavLink>、<Link></Link>
+     3-2.路由：<Route />、<Switch />、<Redirect />
+
+※ Router相關組件：
+1.<BrowserRouter></BrowserRouter>、<HashRouter></HashRouter>
+2.<NavLink className={} to={}></NavKink>、<Link></Link> => 差別在NavLink有className屬性
+3.<Route path="" component={}/>
+4.<Switch></Switch>
+5.<Redirect to="" />
+
+------------------------
+
+● react_redux：
+
+action -> store -> reducers
+  ↖       ↓ ↑_______｜
+    ↖      ↓
+      ↖← React component
+
+store => createStore()、subcribe()
+
+reducers => action、action-types
+
+action => dispatch === publish()

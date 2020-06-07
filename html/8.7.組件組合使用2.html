@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="ex"></div>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script type="text/babel">
+    /*
+        問題：數據保存再哪個組件內？
+           A：看數據是某個組件需要(給它)，還是某些組件需要(給共同的父組件)。
+
+        問題2：需要在子組件中改變父組件的狀態？
+            A：子組件中不能直接改變父組件的狀態，狀態在哪個組件，更新狀態的行為就
+               應該定義在哪個組件中。
+               => 此例子解法：父組件定義狀態，props傳遞給子組件，子組件在調用即可。
+
+        組件化編寫功能的流程：
+            1.拆分組件。
+            2.實現靜態組件(只有靜態界面，沒有動態數劇和交互)。
+            3.實現動態組件：
+                3-1.實現初始化數據動態顯示。
+                3-2.實現交互功能。
+    */
+
+      class App extends React.Component{
+
+        constructor(props){
+          super(props);
+          this.state = {
+            todos:['1','2','3']
+          }
+          this.doAdd = this.doAdd.bind(this)
+        }
+
+        doAdd(todo){
+          const {todos} = this.state;
+          todos.unshift(todo);
+          this.setState({todos});
+        }
+
+        render(){
+          const {todos} = this.state;
+          return (
+            <div>
+              <h1>Simple TODO Lists</h1>
+              <Add todosLen={todos.length} doAdd={this.doAdd} />
+              <List todos={todos}/>
+            </div>
+          )
+        }
+
+      }
+
+      class Add extends React.Component{
+
+        constructor(props){
+          super(props);
+
+          this.add = this.add.bind(this);
+        }
+
+        add(){
+          const inputValue = this.doInput.value.trim();
+          if(!inputValue){
+            return  alert("不可為空值");
+          }
+
+          this.props.doAdd(inputValue);
+
+          this.doInput.value = '';
+        }
+
+        render(){
+          const {todosLen} = this.props;
+          return (
+            <div>
+              <input type="text" ref={input => this.doInput = input}/>
+              <button onClick={this.add}>add #{todosLen +1}</button>
+            </div>
+          )
+        }
+      }
+      Add.propTypes = {
+        todosLen : PropTypes.number.isRequired,
+        doAdd : PropTypes.func.isRequired
+      }
+
+      class List extends React.Component{
+
+        render(){
+          const {todos} = this.props;
+
+          return (
+            <ul>
+              {
+                todos.map((todo,index)=> <li key={index}>{todo}</li>)
+              }
+            </ul>
+          )
+        }
+
+      }
+      List.propTypes = {
+        todos : PropTypes.array.isRequired
+      }
+
+
+      ReactDOM.render(<App />,document.getElementById('ex'))
+
+    </script>
+  </body>
+</html>

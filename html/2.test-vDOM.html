@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="test1"></div>
+    <div id="test2"></div>
+
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+    <!-- 原生js創建虛擬DOM (一般不使用)-->
+    <script type="text/javascript">
+    const msg = "I like DL";
+    const myClass = "vdom";
+
+    // 1.js創建需擬DOM
+        /*
+            js原生寫法：
+            react.creatElement("標籤語義",{屬性:屬性值},內容);
+        */
+        const vDom1 = React.createElement("h2",{class:myClass},msg);
+
+    // 2.渲染虛擬DOM
+    ReactDOM.render(vDom1,document.getElementById("test1"));
+
+    </script>
+
+    <!-- 2.balel創建虛擬DOM (常用)-->
+    <script type="text/babel">
+    // 1.babel創建虛擬DOM
+    /*
+        babel寫法：
+        <標籤 屬性:屬性值>內容</標籤>
+
+        若有變量或js語法，都需使用{}括起來
+        <標籤 屬性:{屬性值}>{內容}</標籤>
+    */
+    const vDom2 = <h3 class={myClass}>{msg}</h3>
+
+    // 2.渲染虛擬DOM
+    ReactDOM.render(vDom2,document.getElementById("test2"));
+
+    </script>
+</body>
+</html>

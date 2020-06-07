@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <p><input type="text"></p>
+    <a href="/test1" onclick="return push('/test1')">test1</a><br><br>
+    <button onclick="return push('/test2')">test2</button><br><br>
+    <button onclick="back()">回退</button><br><br>
+    <button onclick="forward()">前進</button><br><br>
+    <button onclick="replace('/test3')">replace test3</button><br><br>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/history/4.7.2/history.js"></script>
+    <script type="text/javascript">
+
+        // 方式一：
+        let history = history.creatBrowserHistory();
+
+        // 方式二：
+        // history = history.creatHashHistory();
+
+        function push(to){
+            history.push(to);
+            return false;
+        }
+
+        function back(){
+            history.back();
+            return false;
+        }
+
+        function forward(){
+            history.forward();
+            return false;
+        }
+
+        function replace(to){
+            history.replace(to);
+            return false;
+        }
+
+    </script>
+
+
+</body>
+</html>

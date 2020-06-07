@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="ex"></div>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script type="text/babel">
+    /*
+        自定義包含表單的組件
+            1.表單界面：用戶名、密碼、按鈕。
+            2.輸入用戶名密碼後，點擊按鈕提示輸入的信息。
+            3.不提交表單。
+    */
+
+        class LoginForm extends React.Component{
+
+            constructor(props){
+                super(props);
+
+                this.state = {
+                    pwd:''
+                }
+
+                this.handleSubmit = this.handleSubmit.bind(this);
+                this.handleChange = this.handleChange.bind(this);
+            }
+
+            handleSubmit(event){
+                const name = this.nameInp.value.trim();
+                const {pwd} = this.state;
+                alert(`輸入的用戶名為${name}，密碼為${pwd}`);
+
+                event.prevntDefault();
+            }
+
+            handleChange(event){
+                const pwd = event.target.value;
+                this.setState({pwd});
+            }
+
+            render(){
+                return(
+                    <form onSubmit={this.handleSubmit}>
+                        {/* 非受控組件寫法：*/}
+                        <label for="username">用戶名：</label>
+                        <input type="text" id="username" ref={input=>this.nameInp = input}/>&nbsp;&nbsp;
+
+                        {/* 受控組件寫法：*/}
+                        <label for="pwd">密碼：</label>
+                        <input type="text" id="pwd" value={this.state.pwd} onChange={this.handleChange}/>&nbsp;&nbsp;
+
+                        
+                        <input type="submit" value="登入" />
+                    </form>
+                )
+            }
+        }
+
+        ReactDOM.render(<LoginForm />,document.getElementById('ex'));
+
+    </script>
+  </body>
+</html>

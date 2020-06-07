@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="ex"></div>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script type="text/babel">
+
+        class Time extends React.Component{
+            constructor(props){
+                super(props)
+
+                this.state = {
+                    date : new Date()
+                }
+
+            }
+
+            componentDidMount(){
+                // console.log("1",this);
+                setInterval(()=>{
+                    // console.log("2",this);
+                    this.setState({date:new Date()})
+                },1000)
+            }
+
+            render(){
+                return(
+                    <div>
+                        <p>Hello,<input type="text" />！</p>
+                        <span>It is {this.state.date.toLocaleTimeString()}</span>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<Time />,document.getElementById('ex'));
+
+    </script>
+  </body>
+</html>

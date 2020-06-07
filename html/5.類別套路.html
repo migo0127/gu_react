@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="example"></div>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script type="text/babel">
+
+        /*
+            類別組件(元件)步驟：
+            1.初始化狀態。
+            2.讀取狀態。
+            3.更新狀態：
+                3-1.讀取狀態。
+                3-2.強制綁定this。
+                3-3.更新狀態。
+        */
+
+        // 一、定義元件
+        class IsLike extends React.Component{
+
+            // 1.初始狀態
+            constructor(props){
+                super(props);
+                this.state = {
+                    isLikeMe : false
+                }
+
+                // 3-2.將新增的方法中的this強制綁定為元件對象(重要!!!)
+                this.handleClick = this.handleClick.bind(this);
+            }
+
+            // 3.onClick設定：此為新增的方法，所以內部的this默認不是元件對象，而是undefined，故需要在透過3-2.來強制綁定this
+            handleClick(){
+                // 3-1.讀取狀態並取反 (即每次點擊都取反)
+                const isLikeMe = !this.state.isLikeMe;
+
+                // 3-3.更新狀態
+                this.setState({isLikeMe});
+
+            }
+
+            // 重寫元件類的方法：為元件內本身的方法，所以this 就是指像元件對象
+            render(){
+                // 2.讀取狀態
+                const {isLikeMe} = this.state;
+
+                return (
+                    // 3.onClick(更新狀態)
+                    <h2 onClick={this.handleClick}>{isLikeMe? '我喜歡你' : '你喜歡我'}</h2>
+                )
+            }
+
+        }
+
+        // 二、渲染元件
+        ReactDOM.render(<IsLike />,document.getElementById('example'))
+
+
+    </script>
+
+</body>
+</html>

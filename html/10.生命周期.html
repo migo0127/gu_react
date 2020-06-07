@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="ex"></div>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script type="text/babel">
+
+        class Life extends React.Component{
+            constructor(props){
+                super(props);
+
+                this.state = {
+                    opacity:1
+                }
+                this.handleClick = this.handleClick.bind(this);
+            }
+
+        handleClick(){
+            ReactDOM.unmountComponentAtNode(document.getElementById('ex'));
+        }
+
+        componentDidMount(){
+            this.timerId = setInterval(function(){
+                console.log("定時器執行");
+
+                let {opacity} = this.state;
+                opacity -= 0.2;
+
+                if(opacity <= 0){
+                opacity = 1;
+                }
+
+                this.setState({opacity});
+            }.bind(this),200)
+        }
+
+        componentWillUnmount(){
+            clearInterval(this.timerId);
+        }
+            render(){
+                const {opacity} = this.state;
+                return(
+                    <div>
+                        <h2 style={{opacity}}>{this.props.msg}</h2>
+                        <button onClick={this.handleClick}>滾~</button>
+                    </div>
+                )
+            }
+        }
+        Life.propTypes = {
+            msg : PropTypes.string
+        }
+
+        ReactDOM.render(<Life msg={"react太繞了！"}/>,document.getElementById('ex'));
+
+    </script>
+  </body>
+</html>

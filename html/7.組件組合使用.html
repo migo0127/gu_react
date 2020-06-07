@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+
+    <div id="example"></div>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script type="text/babel">
+
+    /*
+        自定義組件，功能說明：
+        1.兩個輸入框及一個按鈕
+        2.點擊按鈕後，提示第一個輸入框中的值
+        3.當第二個輸入框失去焦點時，提示這個輸入框的值
+    */
+
+        class MyComponent extends React.Component{
+
+          constructor(props){
+              super(props);
+
+              this.handleClick = this.handleClick.bind(this);
+              this.handleBlru = this.handleBlur.bind(this);
+
+          }
+
+
+          handleClick(){
+              alert(this.input.value)
+          }
+
+          handleBlur(event){
+              alert(event.target.value)
+          }
+
+          render(){
+              return (
+                  <div>
+                  <input type="text" ref={ input => this.input = input} />&nbsp;&nbsp;
+                  <button onClick={this.handleClick}>提示輸入的值</button>&nbsp;&nbsp;
+                  <input type="text" onBlur={this.handleBlur} />
+                  </div>
+              )
+          }
+        }
+
+        ReactDOM.render(<MyComponent />,document.getElementById('example'))
+
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="test"></div>
+
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+    <!-- 要使用 text/babel 來解析 jsx -->
+    <script type="text/babel">
+        let vDom = <h1>Hello World!</h1> // 是 jsx 寫法，不是字符串，所以不要使用" "。
+        ReactDOM.render(vDom,document.getElementById("test"));
+
+    </script>
+
+</body>
+</html>
