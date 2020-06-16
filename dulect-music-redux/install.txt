@@ -10,6 +10,9 @@ yarn add node-sass bootstrap react-bootstrap react-icons
 ● react-dom：
 npm install react react-dom
 
+● react-router-dom：
+>yarn add react-router-dom
+
 ● redux：
 npm install --save redux
 
@@ -21,6 +24,11 @@ npm install --save redux-thunk
 
 ● redux-devtools：
 npm install --save redux-devtools-extension
+
+● react-reveal scroll動畫第三方函式庫：
+yarn add react-reveal
+
+https://www.react-reveal.com/examples/common/custom/
 
 
 
